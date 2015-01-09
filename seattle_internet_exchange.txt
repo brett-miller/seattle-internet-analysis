@@ -1,0 +1,9 @@
+http://www.seattleix.net/rs/rs2.1500.v4.peers.txt
+http://www.seattleix.net/rs/rs3.1500.v4.peers.txt
+http://www.seattleix.net/rs/rs2.1500.v6.peers.txt
+http://www.seattleix.net/rs/rs3.1500.v6.peers.txt
+http://www.seattleix.net/rs/rs2.1500.v4.txt
+http://www.seattleix.net/rs/rs2.9000.v4.peers.txt
+http://www.seattleix.net/rs/rs3.9000.v4.peers.txt
+http://www.seattleix.net/rs/rs2.9000.v6.peers.txt
+http://www.seattleix.net/rs/rs3.9000.v6.peers.txt
