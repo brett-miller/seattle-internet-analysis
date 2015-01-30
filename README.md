@@ -1,5 +1,10 @@
+# Seattle Internet Map
 
-Notes from the Code for Seattle meet up on 1/8/15
+#### Notes from the Code for Seattle meet up on 1/29/15
+  * not quite ready for a demo
+  * almost completed traceroute collection script
+
+#### Notes from the Code for Seattle meet up on 1/8/15
 
 Michael Mattmiller (City of Seattle CTO) expressed the desire for a map showing real world internet service levels to residents in Seattle.  The goal of the map is to show:
   * the difference in service levels of each provider
@@ -7,14 +12,14 @@ Michael Mattmiller (City of Seattle CTO) expressed the desire for a map showing 
   * seattle's progress towards Gigabit internet
   * the variance in service levels by neighborhood
 
-Ideas:
+#### Ideas:
 
 * Map seattle's internet infrastructure using traceroutes and the resources listed below
 * Find a way to measure end user internet serivice levels
   * Create a speed test page and ask residents to test their service?
 * Use permit data from the City of Seattle to map investments
 
-Resources:
+#### Resources:
 
 * Seattle Internet Exchange:
   * http://www.seattleix.net/
@@ -37,5 +42,12 @@ Resources:
   * http://www.measurementlab.net/
   * https://cloud.google.com/bigquery/docs/dataset-mlab#schema
 
+* gdal is used to convert shape files to GeoJSON
+  * brew install gdal
 
+* whois python library
+  * https://pypi.python.org/pypi/whois
 
+* geopy
+  * https://pypi.python.org/pypi/geopy/1.7.1
+  * take address from whois lookup and convert it to lat/long
