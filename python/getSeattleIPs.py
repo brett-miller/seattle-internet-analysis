@@ -49,4 +49,5 @@ for block in blocksReader:
 outputFile = open('seattleCIDRBlocksAndLocations.json','w')
 
 outputFile.write(json.dumps(blocks))
+outputFile.close()
 
