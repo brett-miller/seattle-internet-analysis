@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+
+</style>
+<body>
+<script src="/js/d3.v3.min.js"></script>
+<script src="/js/lodash.min.js"></script>
+<script>
+var margin = {top: 40, right: 200, bottom: 40, left: 200},
+    width = 1260 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var tree = d3.layout.tree()
+    .size([height, width]);
+
+var diagonal = d3.svg.diagonal()
+    .projection(function(d) { return [d.y, d.x]; });
+
+var canvas = d3.select("body").append("canvas")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom);
+
+var context = canvas.node().getContext("2d");
+context.translate(margin.left,margin.top);
+
+d3.json("sampleRouteConnections.json", function(error, data) {
+  console.log(data)
+  
+var nodes = [], links =[];
+var processLevel = function(previousLevel)
+{
+  // console.log(previousLevel.entries());
+  if (previousLevel.has("undefined")) {
+    previousLevel.remove("undefined");
+  }
+  var map = d3.nest()
+    .key(function(d) {  
+      if (data[d.key].UPcount != 1) 
+        { 
+          // var count=d3.sum(d.children.map(function(d) { return d.value.count}));
+          var array = [];
+          array.push(d.value.children)
+          var children = Array.isArray(d.value.children) ? d.value.children : Object.keys(d.value.children).map(function(key){ return d.value.children[key] });
+          nodes.push({ name: d.key, count: d.value.count, children: children})
+        }
+        else { return data[d.key].UPconnections[0]}
+      })
+    .rollup(function(d) { 
+        var count=d3.sum(d.map(function(d) { return d.value.count}));
+        var children = d.map(function(d) { obj = {}; obj.name = d.key; obj.children = d.value; return obj; });
+        // console.log(children);
+          return { count: d.length + count, name: data[d[0].key].UPconnections[0], children: children }})
+    .map(previousLevel.entries(), d3.map)
+  return map;
+}
+
+levelOne = d3.nest()
+  .key(function(d) { if (d.value.DOWNconnections==0 && d.value.UPconnections.length == 1) { return d.key } })
+  .rollup(function(d) { return { name: d[0].value.name, count: d.length }})
+  .map(d3.entries(data),d3.map);
+
+var levels=[levelOne];
+var hasItems = true;
+var count=0;
+while (hasItems == true && count < 15)
+{
+  levels.push(processLevel(levels.slice(-1)[0]));
+  if (levels.slice(-1)[0].size == 1) {
+    hasItems=false;
+  }
+  count++;
+}
+
+// nodes = d3.merge(temp1.map(function(d) { return d.entries() })
+console.log(nodes);
+
+// var nodesByName = {};
+//   links.forEach(function(link) {
+//     var parent = link.source = nodeByName(link.source),
+//         child = link.target = nodeByName(link.target);
+//     if (parent.children) parent.children.push(child);
+//     else parent.children = [child];
+//   });
+
+//   // Extract the root node and compute the layout.
+//   // var nodes = tree.nodes(links.slice([0].source);
+
+//   links.forEach(function(d) {
+//   context.beginPath();
+//   context.arc(d.target.y,d.target.x,4.5,0,2*Math.PI);
+//   context.fillStyle="green";
+//   context.fill();
+//   context.closePath();
+
+  
+//   context.beginPath();
+//   context.moveTo(d.source.y,d.source.x);
+//   context.lineTo(d.target.y,d.target.x)
+//   context.stroke()
+//   context.closePath();
+
+// });
+// links.forEach(function(d) {
+
+//   // context.fillStyle="#FFFFFF";
+//   // context.fillRect(d.target.y-20,d.target.x-20,200,200);
+//   context.fillStyle="green";
+//   context.fillText(d.target.name,d.target.y+10,d.target.x);
+
+// });
+
+//   function nodeByName(name) {
+//     return nodesByName[name] || (nodesByName[name] = {name: name});
+//   }
+
+
+ })
+
+</script>

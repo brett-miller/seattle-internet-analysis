@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style type="text/css">
+  #container {
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    margin-top: 75px;
+    border-style: solid;
+    border-width: 2px;
+  }
+</style>
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -21,19 +31,73 @@
           <a class="navbar-brand" href="#" >IP Ranges in Seattle</a>
         </div>
 
-      </div>
       
     </nav>
     </div>
+    <div id="container"></div>
 </body>
-<script src="js/d3.js"></script>
+
+<script src="js/d3.v3.min.js"></script>
+<script src="js/sigma.min.js"></script>
+<script src="js/sigma.parsers.json.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <script>
+// to do.  use d3 to convert lat long to x / y.
+var data2, nodes;
+d3.json('traceroutesRandomSample.json', function(data) { 
+  data2 =data;
+  var height=500,width=500
+  var latitudeScale = d3.scale.linear().domain(d3.extent(data.map(function(d) { return d.ipRange.location.latitude})))
+  var longitudeScale = d3.scale.linear().domain(d3.extent(data.map(function(d) { return d.ipRange.location.longitude})))
+  locationList = d3.set()
+  nodes = data.map(function(d) { 
+      key = d.ipRange.location.longitude + '_' + d.ipRange.location.latitude;
+      if (!locationList.has(key)) {
+        locationList.add(key);
+        var loc = {};
+        loc.id = d.ipRange.startIpNum;
+        // loc.label = d.sampleIp;
+        // loc.label = 'this is a test <\ br> of this'
+        loc.x = longitudeScale(d.ipRange.location.longitude) * width;
+        loc.y = latitudeScale(d.ipRange.location.latitude) * height;
+        loc.size = .1;
+        return loc;
+      }
+    }).filter(function(d) { return d })
+  var sigmaData =   
+    { 
+      nodes: nodes,
+      edges: [{ "id": "e0", "source": "68975982", "target": "69464120"}]
+    } 
+
+  s = new sigma({
+  graph: sigmaData,
+  renderer: {
+    container: document.getElementById('container'),
+    type: 'canvas'
+  },
+  settings: {
+    "sideMargin": 15,
+    "maxNodeSize": 2
+  }
+});
+
+
+
+  // sigma.parsers.json('sigmatest.json', {
+  //   container: 'container',
+  //   settings: {
+  //     defaultNodeColor: '#ec5148'
+  //   }
+
+  // });
+});
 
 
 
 </script>
 
-<script src="js/jquery.min.js"></script>
+
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <script src="js/bootstrap.min.js"></script>
 <!-- <script src="js/underscore.js"></script> -->

@@ -1,0 +1,45 @@
+createElement message='Hello!' name=messageInput
+| append input(type='text',value=message, onChange=(message=this.value))
+
+
+
+
+srcServiceX = (source=json uri='http://service:80' paramaters=(test=foo,clientid=bar))
+
+
+
+mapServiceX > srcServiceX > rollup1=sum(foo) rollup2=count(*) by key1, key2 
+
+
+map / reduce
+	filter
+	transform
+
+
+
+select, attributes
+
+serviceX=json
+
+serviceXTransformed=stats
+	latMin,latMax=d3.extent(lat)
+	longMin,longMax=d3.extent(long)
+	colectionOfPOI=collect(poi.names)
+	facet1=foo
+	facet2=bar
+
+divMain=append 
+	data=serviceX 
+	target=body 
+	type=div 
+	classed='foo' 
+	text=list #this would create several divs
+	onclick=doThis
+
+pDivTitle=append
+	target=divMain
+	type=p
+	class=boolField?true:false
+	
+
+	

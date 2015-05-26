@@ -1,0 +1,20 @@
+47.7648286,-122.24341
+47.375220, -122.102654
+
+47.5,-122.17
+
+union = tables.tables.filter(function(d) { return d.tableReference.tableId.match(/\d\d\d\d_\d\d/) }).map(function(d) { return "[" + d.id + "]" } ).join(", ")
+
+SELECT
+  connection_spec.client_geolocation.latitude,
+  connection_spec.client_geolocation.longitude,
+  count(distinct web100_log_entry.connection_spec.remote_ip) as ipCount,
+  count(*) as count
+FROM [measurement-lab:m_lab.2009_02], [measurement-lab:m_lab.2009_03], [measurement-lab:m_lab.2009_04], [measurement-lab:m_lab.2009_05], [measurement-lab:m_lab.2009_06], [measurement-lab:m_lab.2009_07], [measurement-lab:m_lab.2009_08], [measurement-lab:m_lab.2009_09], [measurement-lab:m_lab.2009_10], [measurement-lab:m_lab.2009_11], [measurement-lab:m_lab.2009_12], [measurement-lab:m_lab.2010_01], [measurement-lab:m_lab.2010_02], [measurement-lab:m_lab.2010_03], [measurement-lab:m_lab.2010_04], [measurement-lab:m_lab.2010_05], [measurement-lab:m_lab.2010_06], [measurement-lab:m_lab.2010_07], [measurement-lab:m_lab.2010_08], [measurement-lab:m_lab.2010_09], [measurement-lab:m_lab.2010_10], [measurement-lab:m_lab.2010_11], [measurement-lab:m_lab.2010_12], [measurement-lab:m_lab.2011_01], [measurement-lab:m_lab.2011_02], [measurement-lab:m_lab.2011_03], [measurement-lab:m_lab.2011_04], [measurement-lab:m_lab.2011_05], [measurement-lab:m_lab.2011_06], [measurement-lab:m_lab.2011_07], [measurement-lab:m_lab.2011_08], [measurement-lab:m_lab.2011_09], [measurement-lab:m_lab.2011_10], [measurement-lab:m_lab.2011_11], [measurement-lab:m_lab.2011_12], [measurement-lab:m_lab.2012_01], [measurement-lab:m_lab.2012_02], [measurement-lab:m_lab.2012_03], [measurement-lab:m_lab.2012_04], [measurement-lab:m_lab.2012_05], [measurement-lab:m_lab.2012_06], [measurement-lab:m_lab.2012_07], [measurement-lab:m_lab.2012_08], [measurement-lab:m_lab.2012_09], [measurement-lab:m_lab.2012_10], [measurement-lab:m_lab.2012_11], [measurement-lab:m_lab.2012_12], [measurement-lab:m_lab.2013_01], [measurement-lab:m_lab.2013_02], [measurement-lab:m_lab.2013_03]
+where 
+  connection_spec.client_geolocation.city = 'Seattle'
+group by
+  connection_spec.client_geolocation.latitude,
+  connection_spec.client_geolocation.longitude;
+
+10:08:B1:52:58:B1

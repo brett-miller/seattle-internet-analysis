@@ -69,9 +69,10 @@ def traceroute(dest_name):
         finally:
             send_socket.close()
             recv_socket.close()
-        trace['ms']=(time.clock() - timer)*1000000
 
         route={}
+
+        route['ms']=(time.clock() - timer)*1000000
 
         if curr_addr is not None:
             curr_host = "%s (%s)" % (curr_name, curr_addr)
@@ -95,7 +96,7 @@ ipRanges = json.loads(open('seattleCIDRBlocksAndLocations.json','r').read())
 
 ipSamples = []
 
-for ipRange in ipRanges[20:30]:
+for ipRange in ipRanges:
     if ipRange['startIpNum'] != ipRange['endIpNum']:
         randomIp = BinaryToIP(IntToBinary(random.randrange(int(ipRange['startIpNum']),int(ipRange['endIpNum']))))
     else:
@@ -106,6 +107,7 @@ traceroutes=[]
 
 for ipSample in ipSamples:
     ipSampleNew=ipSample
+    print ipSample
     ipSampleNew['sampleIpTraceroute'] = traceroute(ipSample['sampleIp'])
     traceroutes.append(ipSampleNew)
 

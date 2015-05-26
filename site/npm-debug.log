@@ -1,0 +1,18 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'start' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.36
+4 verbose node symlink /usr/bin/node
+5 error Error: ENOENT, open '/media/brett/7644df4f-1d5d-4910-935d-0180fc478f41/home/user/f880c77b1b4aa1eb05c83fc817504fe2b4f003f1/git/seattle-internet-analysis/site/package.json'
+6 error If you need help, you may report this *entire* log,
+6 error including the npm and node versions, at:
+6 error     <http://github.com/npm/npm/issues>
+7 error System Linux 3.17.6-031706-generic
+8 error command "/usr/bin/node" "/usr/bin/npm" "start"
+9 error cwd /media/brett/7644df4f-1d5d-4910-935d-0180fc478f41/home/user/f880c77b1b4aa1eb05c83fc817504fe2b4f003f1/git/seattle-internet-analysis/site
+10 error node -v v0.10.36
+11 error npm -v 1.4.28
+12 error path /media/brett/7644df4f-1d5d-4910-935d-0180fc478f41/home/user/f880c77b1b4aa1eb05c83fc817504fe2b4f003f1/git/seattle-internet-analysis/site/package.json
+13 error code ENOENT
+14 error errno 34
+15 verbose exit [ 34, true ]

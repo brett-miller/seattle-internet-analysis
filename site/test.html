@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  </head>
+  <body>
+    <div class="myClass"></div>
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript">
+  update =function() {
+    var parent,all;
+    var data, join, update, updateSelection, node, selection, append;
+      var _update = function(updateData) 
+      {
+        if (!arguments.length) updateData=data;
+        updateSelection = d3.select('.' + parent).selectAll('.' + all)
+          .data(updateData, function(d) { return d; });
+
+        node = updateSelection
+          .enter()
+          .append(append)
+          .attr('class',all);
+
+        updateSelection
+          .exit()
+          .remove();
+
+        node
+          .each(function(e,i) { join(this,e,i) });
+
+        updateSelection
+          .order();
+      };
+      _update.data = function(value)
+      {
+        if (!arguments.length) return data;
+          data = value;
+          return _update;
+      }
+
+      _update.selection = function(parentValue,allValue,appendValue,joinValue) 
+      {
+        if (!arguments.length) return d3.select(parent).selectAll(all);
+          parent = parentValue;
+          all = allValue;
+          append = appendValue;
+          join = joinValue;
+          return _update;
+      }
+      return _update;
+    }
+    </script>
+  </body>
+</html>

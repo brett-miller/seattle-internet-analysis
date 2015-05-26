@@ -1,0 +1,73 @@
+Notes from meeting with Bruce Blood and Tony Perez @ City of Seattle Offices on Feb 11, 2015 
+
+* Existing Maps
+  * State map 
+  * From Will Saunders - used to run broadband office
+    * Now runs open data at Washington State office
+  * City's goal: Equal, Affordable, Symetrical (up/down) Gigabit Internet
+    * Focus on residential / small businesses
+  * Chattanooga, TN is a good example to look at
+
+** Internet in Seattle
+
+|provider|type|notes|
+|Century Link|DSL||
+||Century Link Fiber||
+||Centurly Link Prism (cable tv) requires 24 MB internet||
+|Comcast|Cable Internet||
+|Wave Broadband||Gigabit Pilot in Eastlake (600 homes)|
+|Wireless Carriers|| not currently in scope|
+
+** Regulation
+
+  * Telco regulated by Washington State
+  * Cable is regulated by the city (Tony's office)
+  * On Feb 26th, it is likely that broadband as Title 2 Common Carrier
+  		* No bid discrimination
+		* Will likely have loophools for peering
+
+** Plan
+
+  * Map seattle's internet infrastructure using traceroutes and the resources listed below.
+  * Find a way to measure family and small businesss internet service levels.
+  * Create a speed test page and ask residents to test their service.
+  * Use permit data from the City of Seattle to map investments.
+  * Will provide data regarding what providers offer (price / speed).
+
+** 	Technology
+
+  Cable
+  	Shared medium
+  DSL
+	Central Office (CO) -> POP -> Twisted Copper (TC) (limit of 2,400ft)
+	Upgrade model to shorten TC: 
+		CO -> POP -> Cross Connect -> TC
+  	Some parts of town have 1.5 MB down / 300k up via DSL
+
+** Data
+
+* Dimensions:
+  * Location
+  * Service provider
+  * Service description
+
+* Measures:
+  * Price
+  * Advertized speed (up / down)
+  * Objserved speed (up / down)
+  * Time of day
+
+* City Data
+  * node locations can be obtained
+  * Permits might not be in digital format due to backlog
+
+** Ideas
+
+ * Create heat map showing decreased speeds from POP
+ * Use path-ping method to get initial speed 
+ * Speed Test Page
+  * Result of speed test could show their performance vs others in their area
+  * Might increase bandwidth on network seattle routers
+  * The city hosts videos - maybe could use their data around connection speeds from users
+  * Web site is .Net
+  * Could leverage a Socrata Form? (ask Chris Metcalf)

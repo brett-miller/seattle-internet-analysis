@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node {
+  font: 10px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+</style>
+<body>
+<script src="/js/d3.js"></script>
+<script>
+
+var margin = {top: 40, right: 200, bottom: 40, left: 200},
+    width = 1260 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var tree = d3.layout.tree()
+    .size([height, width]);
+
+var diagonal = d3.svg.diagonal()
+    .projection(function(d) { return [d.y, d.x]; });
+
+var canvas = d3.select("body").append("canvas")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom);
+
+var context = canvas.node().getContext("2d");
+context.translate(margin.left,margin.top);
+  // .append("g")
+  //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.json("connectionNodes.json", function(data) {
+  data2 =data.filter(function(d) { return d[0] == "he-0-10-0-1-pe04.seattle.wa.ibone.comcast.net" });
+  data2 =d3.merge([data2,data.filter(function(d) { return d[1] == "he-0-10-0-1-pe04.seattle.wa.ibone.comcast.net" })]);
+  parentNodes = data2.map(function(e) { return e[0]});
+  parentNodes.push("he-0-10-0-1-pe04.seattle.wa.ibone.comcast.net");
+  leafNodes = data2.map(function(e) { return e[1]});
+  data2 =d3.merge([data2,data.filter(function(d) { return leafNodes.indexOf(d[0]) != -1 
+    && parentNodes.indexOf(d[0]) == -1 })]);
+  // data2 = d3.merge([data2,data.filter(function(d) { return d[0] == data2[2][1] })]);
+  // data2 = d3.merge([data2,data.filter(function(d) { return d[0] == data2[3][1] })]);
+  // data2 = d3.merge([data2,data.filter(function(d) { return d[0] == data2[4][1] })]);
+  // console.log([data2,data.filter(function(d) { return d[0] == data2[5][1] })]);
+  var links = data2.map(function(d) { return {"source": d[0], "target": d[1] }});
+  // var links = [];
+  // Object.keys(data).slice(1,2)
+  // .forEach(function(d) { data[d].DOWNconnections
+  // .forEach(function(e) { links.push({ source: data[d].name, target: e }) }
+  // ) });
+  var nodesByName = {};
+  // // var links = data;
+  // // Create nodes for each unique source and target.
+  links.forEach(function(link) {
+    var parent = link.source = nodeByName(link.source),
+        child = link.target = nodeByName(link.target);
+    if (parent.children) parent.children.push(child);
+    else parent.children = [child];
+  });
+
+  // Extract the root node and compute the layout.
+  var nodes = tree.nodes(links[0].source);
+
+  console.log(links,nodes,nodesByName);
+
+  // // Create the link lines.
+  // svg.selectAll(".link")
+  //     .data(links)
+  //   .enter().append("path")
+  //     .attr("class", "link")
+  //     .attr("d", function(d) { return diagonal(d) });
+
+
+// links.forEach(function(d) {
+//   context.beginPath();
+//   context.arc(d.source.y,d.source.x,4.5,0,2*Math.PI)
+//   context.fillStyle="blue";
+//   context.fill();
+//   context.closePath();
+// });
+links.forEach(function(d) {
+  context.beginPath();
+  context.arc(d.target.y,d.target.x,4.5,0,2*Math.PI);
+  context.fillStyle="green";
+  context.fill();
+  context.closePath();
+
+  
+  context.beginPath();
+  context.moveTo(d.source.y,d.source.x);
+  context.lineTo(d.target.y,d.target.x)
+  context.stroke()
+  context.closePath();
+
+
+
+
+
+});
+links.forEach(function(d) {
+
+  
+  context.fillStyle="#FFFFFF";
+  context.fillRect(d.target.y-20,d.target.x-20,200,200);
+  context.fillStyle="green";
+  context.fillText(d.target.name,d.target.y+10,d.target.x);
+
+
+
+});
+// links.forEach(function(d) {
+//   if (d.children) 
+//   {
+//     d.children.forEeach(function(e)
+//     {
+//       context.beginPath();
+//       context.arc(e.source.y,e.source.x,4.5,0,2*Math.PI)
+//       context.fillStyle="red";
+//       context.fill();
+//       context.closePath();
+//     })
+//   }
+// });
+  // Create the node circles.
+  // svg.selectAll(".node")
+  //     .data(nodes)
+  //   .enter().append("circle")
+  //     .attr("class", "node")
+  //     .attr("r", 4.5)
+  //     .attr("cx", function(d) { return d.y; })
+  //     .attr("cy", function(d) { return d.x; });
+
+  function nodeByName(name) {
+    return nodesByName[name] || (nodesByName[name] = {name: name});
+  }
+});
+
+</script>
+
+

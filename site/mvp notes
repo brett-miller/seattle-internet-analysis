@@ -1,0 +1,29 @@
+source=json URL=url
+| list='foo';
+source='foo'
+| div text='Hello World';
+| filter a=b;
+
+
+Get
+Maps/Reducers
+Output
+
+
+Output is dataset, elementList, 
+
+Templates are macros, no source, list as input
+
+Data moves one wa
+
+datumName<datum(args[],...) //clones datum
+.class #datumName.foo.format(args[],...) //format functions call be declared locally or globally
+collectionName<<collection(args[],...) //clones collection
+
+
+
+Functions are data too.  foo=case(field,datum) //datum holds lookup values.  foo is assigned to lookup value keys.
+
+
+
+Since pages are built using the data flow, show the real time page on the right.  Compile in the browser.  Only prerequisit is data, but all data should have mocks available.  Use python simple web server and python dicts or files for mock data.  Mock data is used for unit testing.  Test how many objects get greated.
