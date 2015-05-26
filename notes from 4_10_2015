@@ -1,0 +1,21 @@
+Notes from meeting with Michael Mattmiller, Bruce Blood and Tony Perez @ City of Seattle Offices on Apr 10, 2015 
+
+Reviewed current visualizations of network topology:
+
+```
+> cd site
+> python server.py
+> #go to http://localhost:8001/Dendogram.html
+> #data is in the flare.json format which is the basis for many d3.js layouts.
+'''
+
+* Data was collected using one sample traceroute from each ip range in Seattle from the max mind dataset.  Scripts are in the python folder.
+  * Examples include: Dendogram.html, bubble.html, bundle.html
+  * Initial work on map is map.html.  Need to add layers for census tracks (I have data in geojson, but not in this repo yet)
+  * Agreed to use 'Census Track' as the finest level of granularity for visualizing data.
+  * Showed map showing speed test distribution using location data provided.  Can be viewed at: https://www.google.com/fusiontables/DataSource?docid=1yNMP16kUEjxPYeFXm565F9se42MVKktdDQh4g8tP
+    * BigQuery queries in queries file.
+* Discussed ways to get better geolocation data
+  * To discuss ideas with MLab
+  * Can we use a open source geolocation API?  Something like Wigle.net?
+  * Could store data by census track and show the count of homes services by each logical node discovered through traceroutes.
