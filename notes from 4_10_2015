@@ -18,4 +18,4 @@ Reviewed current visualizations of network topology:
 * Discussed ways to get better geolocation data
   * To discuss ideas with MLab
   * Can we use a open source geolocation API?  Something like Wigle.net?
-  * Could store data by census track and show the count of homes services by each logical node discovered through traceroutes.
+  * Could store data by census track and show the count of homes services by each logical node discovered through traceroutes. 	

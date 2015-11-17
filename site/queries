@@ -17,4 +17,9 @@ group by
   connection_spec.client_geolocation.latitude,
   connection_spec.client_geolocation.longitude;
 
-10:08:B1:52:58:B1
+select *
+from [measurement-lab:m_lab.2015_05]
+where 
+  connection_spec.client_geolocation.city = 'Seattle'
+limit 100
+
